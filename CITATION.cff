@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+title: "Lightweight Zero Trust Architecture for Resource-Constrained IoT Devices: simulation code"
+authors:
+  - family-names: Nawaz
+    given-names: Saba
+    affiliation: "University of Management and Technology (UMT), Lahore, Pakistan"
+date-released: 2026-10-05
+license: MIT
+repository-code: "https://github.com/saabz131395-code/lightweight-zero-trust-iot"

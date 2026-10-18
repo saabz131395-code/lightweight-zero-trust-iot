@@ -1,0 +1,15 @@
+dtype,sum,count,rate
+Nurse-call button,27,40,0.675
+Smart door sensor,10,40,0.25
+Fall-detection wearable,0,20,0.0
+Glucose monitor,0,40,0.0
+Blood-pressure monitor,0,40,0.0
+ECG monitor,0,20,0.0
+IP security camera,0,20,0.0
+Heart-rate monitor,0,60,0.0
+Patient temperature sensor,0,40,0.0
+Medicine fridge monitor,0,20,0.0
+Pulse oximeter (SpO2),0,60,0.0
+Room environment sensor,0,20,0.0
+Smart bed sensor,0,40,0.0
+Smart infusion pump,0,20,0.0

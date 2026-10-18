@@ -5,3 +5,4 @@ venv/
 .ipynb_checkpoints/
 .DS_Store
 results/*_quick.csv
+results/revision/feature_vectors_*.csv

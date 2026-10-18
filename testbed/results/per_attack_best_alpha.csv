@@ -1,0 +1,3 @@
+,det_DDoS flooding,det_Data exfiltration,det_Botnet C&C beaconing,det_Port scanning
+mean,1.0,0.95,0.0,1.0
+std,0.0,0.15389675281277312,0.0,0.0

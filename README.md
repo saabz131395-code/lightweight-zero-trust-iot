@@ -15,6 +15,14 @@ evidence that updates the trust score every cycle and drives a three-level
 access decision (ALLOW / RE-AUTHENTICATE / DENY-ISOLATE). No anomaly-detection
 work runs on the constrained device.
 
+## Virtual hospital testbed (real traffic)
+
+The folder [`testbed/`](testbed/) contains a second evaluation on **real network traffic**:
+a virtual hospital network of 30 IoT devices (15 types) with their own IP addresses
+and ports, packet-level capture into an SQLite database, real attack traffic, and a
+second stage that classifies the attack type. The captured dataset (30 runs,
+1.85 million packets) is included. See [`testbed/README.md`](testbed/README.md).
+
 ## What the simulation models
 
 - 100 devices: 90 normal (temperature sensors, smart bulbs, security cameras,
@@ -39,6 +47,9 @@ not executed cryptographically. All traffic and attacks are synthetic.
 | `ablation_study.py` | Ablation (authentication-only, rule-based-only), supervised Random Forest comparison, and leave-one-attack-type-out test. |
 | `make_sensitivity_figures.py` | Draws the α-sensitivity figures (detection/FPR, F1/latency). |
 | `make_comparison_figures.py` | Draws the comparison figures with Zahoor et al. (2025) and Ma et al. (2025). |
+| `revision_experiments.py` | Additional analyses from the internal review: feature-weight and threshold sensitivity, Isolation Forest fitted on all baseline cycles, feature correlation, Random Forest per-seed results, scalability timing. |
+| `device_cycle_auc.py` | Device-cycle ROC-AUC of the anomaly score vs. the trust score, per-attack AUC and cycle-level FPR/precision (article Section 6.4). |
+| `revision_stats.py` | Paired Wilcoxon tests with Holm correction, rank-biserial effect sizes and bootstrap CIs; formal selection of α (Youden's J). |
 | `results/` | Per-seed result files (CSV) behind every reported number. |
 | `figures/` | Figures as they appear in the thesis (Chapter 6). |
 
@@ -61,7 +72,16 @@ python run_experiments.py --workers 4
 # 2. Ablation study (writes results/ablation_results.csv)
 python ablation_study.py
 
-# 3. Figures
+# 3. Additional analyses (results/revision/)
+python revision_experiments.py weights
+python revision_experiments.py thresholds
+python revision_experiments.py iffit
+python revision_experiments.py rf
+python revision_experiments.py scale
+python revision_stats.py
+python device_cycle_auc.py
+
+# 4. Figures
 python make_sensitivity_figures.py
 python make_comparison_figures.py
 ```
@@ -78,6 +98,7 @@ A single run can also be started directly with `python trust_engine_sim.py`.
 | α sensitivity, Table 6.3 / Table 7, Figures 6.3-6.4 / 3-4 | `results/sensitivity_runs.csv` |
 | Ablation, Table 6.4 / Table 8 | `results/ablation_results.csv` |
 | Random Forest and leave-one-attack-type-out, Tables 6.5-6.6 / 9-10 | `ablation_study.py` (`train_rf`, `train_rf_holdout`, `run_holdout_eval`) |
+| Device-cycle ROC-AUC (article Section 6.4, Figure 3) | `results/device_cycle_auc.csv` |
 | Comparison with recent work, Figures 6.5-6.6 / 5-6 | `results/baseline_runs.csv`, `results/sensitivity_runs.csv`, plus published values from the cited papers |
 
 Headline results: at α = 0.7, 81.0% detection, 31.9% device-level false-positive

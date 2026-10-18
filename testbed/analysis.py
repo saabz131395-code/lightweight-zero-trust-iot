@@ -2,7 +2,7 @@
 
 Pipeline (per run):
   packets (SQLite)  ->  per-device, per-cycle features RF, IAT, PS, PU, DV
-  -> per-device baseline normalisation (cycles 0-19, 15 % margin)
+  -> per-device baseline normalisation (first BASE cycles, 15 % margin)
   -> behavioural risk / trust (Eqs. 1-3)  -> Isolation Forest anomaly score A(t)
   -> dynamic trust DT(t) = a*DT(t-1) + b*(1-A(t))  -> ALLOW / RE-AUTH / DENY
 Stage 2: a Random Forest assigns an attack type to suspicious device-cycles.
@@ -96,7 +96,7 @@ def label(f, att, run_id):
 
 # ------------------------------------------------------------------ engine
 def normalise(f, margin=0.15):
-    """Per-device min-max against the frozen baseline (cycles 0..BASE-1)."""
+    """Per-device min-max against the frozen baseline (the first BASE cycles of the run)."""
     out = f.copy()
     b = f[f.cycle < BASE].groupby("device_id")[FEATS]
     lo, hi = b.min(), b.max()

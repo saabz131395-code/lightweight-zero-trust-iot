@@ -26,6 +26,16 @@ SERVICES = {
 #   mode "periodic": one message every interval (+-10 % jitter)
 #   mode "poisson":  event-driven, exponential gaps with this mean
 #   mode "stream":   continuous media stream, one packet every interval
+#   mode "burst":    event-driven bursts (button press): exponential gaps with this
+#                    mean between events, each event = BURST_MSGS messages BURST_GAP apart
+#
+# Calibration against CICIoMT2024 profiling captures (Dadkhah et al., 2024):
+#   * camera stream rate and payload range follow the Blink camera live-view capture;
+#   * nurse-call bursts follow the Singcall / multifunctional pager button captures;
+#   * the fall-detection wearable's reporting interval follows the SenseU sensor capture;
+#   * every non-video message carries SECURE_OVERHEAD extra bytes for the TLS/DTLS record
+#     layer and application framing, so that small-device frame sizes match the real
+#     devices (median 126-146 B), which all communicate over encrypted channels.
 DEVICE_TYPES = {
     "Heart-rate monitor":         ("MQTT", 3, "periodic", 1.0, (40, 80)),
     "Pulse oximeter (SpO2)":      ("MQTT", 3, "periodic", 1.0, (30, 60)),
@@ -37,12 +47,16 @@ DEVICE_TYPES = {
     "Room environment sensor":    ("CoAP", 2, "periodic", 3.0, (30, 50)),
     "Medicine fridge monitor":    ("CoAP", 2, "periodic", 3.0, (20, 40)),
     "Smart door sensor":          ("MQTT", 2, "poisson", 4.0, (20, 30)),
-    "IP security camera":         ("RTSP", 2, "stream", 0.05, (1000, 1400)),
-    "Nurse-call button":          ("MQTT", 2, "poisson", 8.0, (20, 40)),
+    "IP security camera":         ("RTSP", 2, "stream", 0.025, (1000, 1400)),
+    "Nurse-call button":          ("MQTT", 2, "burst", 8.0, (20, 40)),
     "Smart bed sensor":           ("MQTT", 2, "periodic", 2.0, (60, 120)),
-    "Fall-detection wearable":    ("MQTT", 1, "periodic", 1.0, (30, 60)),
+    "Fall-detection wearable":    ("MQTT", 1, "periodic", 2.0, (30, 60)),
     "Smart lighting controller":  ("HTTP", 1, "periodic", 10.0, (100, 200)),
 }
+
+SECURE_OVERHEAD = (60, 100)     # bytes added to every non-video message
+BURST_MSGS = (4, 7)             # messages per button-press event
+BURST_GAP = (0.1, 0.4)          # seconds between messages within a burst
 
 # ---- compromised devices -------------------------------------------------
 # (device type, index within type) -> attack type

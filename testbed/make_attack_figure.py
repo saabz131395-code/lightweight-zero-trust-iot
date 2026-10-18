@@ -19,7 +19,7 @@ lg = A.run_engine(f, best, seed=RUN, calib="device")
 COL = {"DDoS flooding": "#D64545", "Data exfiltration": "#E8952C", "Botnet C&C beaconing": "#4F6D99", "Port scanning": "#0E9F8E"}
 fig, axs = plt.subplots(2, 2, figsize=(7.2, 4.8), sharex=True)
 for ax, t in zip(axs.flat, COL):
-    a = att[(att.run_id == RUN) & (att.attack_type == t)].iloc[0]
+    a = att[(att.run_id == RUN) & (att.attack_type == t)].sort_values("start_cycle").iloc[0]   # earliest window of this type
     g = lg[lg.device_id == a.device_id].sort_values("cycle")
     name = dev.set_index("device_id").name[a.device_id]
     ax.axvspan(a.start_cycle, a.end_cycle, color=COL[t], alpha=0.13, lw=0, label="Attack window")

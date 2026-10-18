@@ -1,31 +1,31 @@
 device_id,name,protocol,port,n_packets,bytes
-1,Heart-rate monitor #1,MQTT,1883,9647,907481
-2,Heart-rate monitor #2,MQTT,1883,8465,857871
-3,Heart-rate monitor #3,MQTT,1883,8869,874616
-4,Pulse oximeter (SpO2) #1,MQTT,1883,10394,827738
-5,Pulse oximeter (SpO2) #2,MQTT,1883,9362,785563
-6,Pulse oximeter (SpO2) #3,MQTT,1883,10046,813787
-7,Blood-pressure monitor #1,MQTT,1883,3605,271109
-8,Blood-pressure monitor #2,MQTT,1883,4982,326302
-9,ECG monitor #1,HL7,2575,36502,92099134
-10,ECG monitor #2,HL7,2575,29998,14492631
-11,Smart infusion pump #1,HL7,2575,12367,66906955
-12,Smart infusion pump #2,HL7,2575,6946,1132365
-13,Glucose monitor #1,MQTT,1883,2462,204182
-14,Glucose monitor #2,MQTT,1883,1557,167532
-15,Patient temperature sensor #1,CoAP,5683,4747,254447
-16,Patient temperature sensor #2,CoAP,5683,7494,364038
-17,Room environment sensor #1,CoAP,5683,449247,30444299
-18,Room environment sensor #2,CoAP,5683,4447,245420
-19,Medicine fridge monitor #1,CoAP,5683,399945,27109364
-20,Medicine fridge monitor #2,CoAP,5683,4453,221588
-21,Smart door sensor #1,MQTT,1883,4995,268395
-22,Smart door sensor #2,MQTT,1883,4841,262017
-23,IP security camera #1,RTSP,554,146517,180405459
-24,IP security camera #2,RTSP,554,146023,180389253
-25,Nurse-call button #1,MQTT,1883,2859,145377
-26,Nurse-call button #2,MQTT,1883,3226,161578
-27,Smart bed sensor #1,MQTT,1883,4470,547755
-28,Smart bed sensor #2,MQTT,1883,4738,559330
-29,Fall-detection wearable #1,MQTT,1883,8350,746632
-30,Smart lighting controller #1,HTTP,80,61624,3781819
+1,Heart-rate monitor #1,MQTT,1883,9651,1484039
+2,Heart-rate monitor #2,MQTT,1883,8470,1435290
+3,Heart-rate monitor #3,MQTT,1883,8870,1450851
+4,Pulse oximeter (SpO2) #1,MQTT,1883,10386,1400929
+5,Pulse oximeter (SpO2) #2,MQTT,1883,9366,1363384
+6,Pulse oximeter (SpO2) #3,MQTT,1883,10048,1391289
+7,Blood-pressure monitor #1,MQTT,1883,3607,385345
+8,Blood-pressure monitor #2,MQTT,1883,4984,441593
+9,ECG monitor #1,HL7,2575,36512,94392340
+10,ECG monitor #2,HL7,2575,29999,16813113
+11,Smart infusion pump #1,HL7,2575,12367,67192123
+12,Smart infusion pump #2,HL7,2575,6944,1420514
+13,Glucose monitor #1,MQTT,1883,2466,319881
+14,Glucose monitor #2,MQTT,1883,1560,282416
+15,Patient temperature sensor #1,CoAP,5683,4745,541074
+16,Patient temperature sensor #2,CoAP,5683,7506,653422
+17,Room environment sensor #1,CoAP,5683,449247,30635631
+18,Room environment sensor #2,CoAP,5683,4452,440186
+19,Medicine fridge monitor #1,CoAP,5683,399951,27301721
+20,Medicine fridge monitor #2,CoAP,5683,4455,413805
+21,Smart door sensor #1,MQTT,1883,5006,413850
+22,Smart door sensor #2,MQTT,1883,4829,403830
+23,IP security camera #1,RTSP,554,290476,360746889
+24,IP security camera #2,RTSP,554,289982,360573293
+25,Nurse-call button #1,MQTT,1883,6127,731369
+26,Nurse-call button #2,MQTT,1883,6778,795398
+27,Smart bed sensor #1,MQTT,1883,4465,834288
+28,Smart bed sensor #2,MQTT,1883,4741,844660
+29,Fall-detection wearable #1,MQTT,1883,4743,685586
+30,Smart lighting controller #1,HTTP,80,61620,3838051

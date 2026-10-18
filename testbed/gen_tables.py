@@ -12,9 +12,10 @@ for dtype, (proto, count, mode, interval, payload) in C.DEVICE_TYPES.items():
     ips = ds[0]["ip"] if len(ds) == 1 else f"{ds[0]['ip']}--.{ds[-1]['ip'].split('.')[-1]}"
     mark = "$^\\dagger$" if any(d["attack"] for d in ds) else ""
     tr = C.SERVICES[proto][0].upper()
-    iv = {"periodic": f"{interval:g} s", "poisson": f"mean {interval:g} s", "stream": f"{interval*1000:g} ms (stream)"}[mode]
+    iv = {"periodic": f"{interval:g} s", "poisson": f"mean {interval:g} s", "burst": f"bursts, mean {interval:g} s", "stream": f"{interval*1000:g} ms (stream)"}[mode]
+    pl = payload if mode == "stream" else (payload[0] + C.SECURE_OVERHEAD[0], payload[1] + C.SECURE_OVERHEAD[1])
     name = dtype.replace("(SpO2)", "(SpO$_2$)")
-    rows.append(f"{sr} & {name} ($\\times${count}){mark} & {ips} & {proto} & {C.SERVICES[proto][1]}/{tr.lower()} & {iv} & {payload[0]}--{payload[1]} \\\\")
+    rows.append(f"{sr} & {name} ($\\times${count}){mark} & {ips} & {proto} & {C.SERVICES[proto][1]}/{tr.lower()} & {iv} & {pl[0]}--{pl[1]} \\\\")
 open(f"{out}/devices_rows.tex", "w").write("\n".join(rows) + "\n")
 
 desc = {

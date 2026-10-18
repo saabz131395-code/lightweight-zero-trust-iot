@@ -20,8 +20,9 @@ work runs on the constrained device.
 The folder [`testbed/`](testbed/) contains a second evaluation on **real network traffic**:
 a virtual hospital network of 30 IoT devices (15 types) with their own IP addresses
 and ports, packet-level capture into an SQLite database, real attack traffic, and a
-second stage that classifies the attack type. The captured dataset (30 runs,
-1.85 million packets) is included. See [`testbed/README.md`](testbed/README.md).
+second stage that classifies the attack type. Device traffic is calibrated against
+real medical IoT devices (CICIoMT2024). The captured dataset (30 runs, 2.4 million
+packets) is included. See [`testbed/README.md`](testbed/README.md).
 
 ## What the simulation models
 

@@ -1,6 +1,6 @@
 dtype,sum,count,rate
-Nurse-call button,27,40,0.675
-Smart door sensor,10,40,0.25
+Smart door sensor,15,40,0.375
+Nurse-call button,7,40,0.175
 Fall-detection wearable,0,20,0.0
 Glucose monitor,0,40,0.0
 Blood-pressure monitor,0,40,0.0

@@ -8,8 +8,11 @@ The testbed emulates a hospital IoT network on one Linux machine. Every device,
 the gateway and the attacker's hosts have their own IPv4 address on the loopback
 network (127.0.0.0/8) and exchange **real TCP/UDP packets**. A raw-socket packet
 sniffer captures every packet to or from a device into an SQLite database.
-Device behaviour (reporting interval, payload size) is configured to resemble
-each device class; it is not a capture from a real hospital.
+Device behaviour (reporting interval, payload size) is configured per device class;
+the camera, nurse-call button and fall-detection wearable profiles and the encryption
+overhead on every non-video message are calibrated against real medical IoT devices
+in the public CICIoMT2024 profiling captures (`compare_ciciomt.py`). It is not a
+capture from a real hospital.
 
 ## Network
 
@@ -35,8 +38,9 @@ flooding), IP security camera (botnet C&C beaconing), smart lighting controller
 | `run_analysis.py` | Full evaluation: design choices on training runs 1–10, alpha sweep, ablations, stage 2, AUC, figures |
 | `make_attack_figure.py` | One graph per attack type (Figure 4) |
 | `db_screenshots.py` | Screenshots of the real database tables (Figure 3) |
+| `compare_ciciomt.py`, `make_ciciomt_figure.py` | Compare testbed traffic with CICIoMT2024 real-device captures (calibration / validation) |
 | `gen_tables.py`, `gen_results_tex.py` | Generate the article's tables and numbers from `config.py` and `results/` |
-| `data/testbed.db.gz` | Captured dataset: 30 runs x 240 s, 1,849,579 packets (121 MB uncompressed) |
+| `data/testbed.db.gz` | Captured dataset: 30 runs x 240 s, 2,431,902 packets (161 MB uncompressed) |
 | `results/` | Per-run results and summaries behind every number in the article |
 
 Database tables: `devices`, `runs`, `attacks` (ground truth: device, attack type,
@@ -65,10 +69,15 @@ python run_analysis.py --db data/testbed.db --train 1-10 --test 11-30
 
 | Metric | Value |
 |---|---|
-| Detection of compromised devices | 81.7% |
-| Device-level false-positive rate | 7.7% (all from event-driven devices) |
-| F1-score | 0.773 |
-| Mean detection latency | 7.73 s |
-| Detection by attack | DDoS 100%, exfiltration 95%, port scan 100%, C&C 0% |
-| Device-cycle ROC-AUC, trust vs anomaly score | 0.964 vs 0.923 |
-| Stage-2 attack type, isolated attackers | 98 / 98 correct |
+| Detection of compromised devices | 79.2% |
+| Device-level false-positive rate | 4.6% (all from event-driven devices) |
+| F1-score | 0.803 |
+| Mean detection latency | 7.66 s |
+| Detection by attack | DDoS 100%, exfiltration 87.5%, port scan 100%, C&C 0% |
+| Device-cycle ROC-AUC, trust vs anomaly score | 0.961 vs 0.920 |
+| Stage-2 attack type, isolated attackers | 95 / 95 correct |
+
+To compare with CICIoMT2024, download the profiling CSVs (Blink_Camera_LAN_WATCH,
+Singcall_LAN_PHYSICAL, Multifunctional_Pager_LAN_PHYSICAL, SenseU_LAN_EMERGENCY) from
+http://cicresearch.ca/IOTDataset/CICIoMT2024/ and run
+`python compare_ciciomt.py <folder with the CSVs>` (file names may need adjusting).

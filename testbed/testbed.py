@@ -141,14 +141,19 @@ def normal_traffic(dev, t0, t_end, rng):
     else:
         s = _tcp(dev["ip"], dst)
         send = s.sendall
+    extra = (0, 0) if dev["mode"] == "stream" else C.SECURE_OVERHEAD
     t = t0 + rng.uniform(0, dev["interval"])
     while t < t_end:
         _sleep_until(t)
-        try:
-            send(os.urandom(rng.randint(lo, hi)))
-        except OSError:
-            pass
-        if dev["mode"] == "poisson":
+        n_msg = rng.randint(*C.BURST_MSGS) if dev["mode"] == "burst" else 1
+        for k in range(n_msg):
+            if k:
+                time.sleep(rng.uniform(*C.BURST_GAP))
+            try:
+                send(os.urandom(rng.randint(lo, hi) + rng.randint(*extra)))
+            except OSError:
+                pass
+        if dev["mode"] in ("poisson", "burst"):
             t += rng.expovariate(1.0 / dev["interval"])
         elif dev["mode"] == "stream":
             t += dev["interval"]

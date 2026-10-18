@@ -79,7 +79,8 @@ def main():
     A.BASE = a.base
     bl = pd.DataFrame(bl); bl.to_csv(f"{a.out}/design_choices_training_runs.csv", index=False)
     tr = bl[(bl.base == a.base) & (bl.calib == "device")].groupby("alpha")[["detection", "fpr"]].mean()
-    best_pre = float((tr.detection - tr.fpr).idxmax())
+    Jt = (tr.detection - tr.fpr).round(6)
+    best_pre = float(Jt[Jt == Jt.max()].index.max())   # ties -> the more persistent setting (fewer false alarms)
     print(bl.groupby(["base", "calib", "alpha"])[["detection", "fpr", "f1"]].mean().round(3).to_string())
 
     rows, logs = [], {}
@@ -206,26 +207,7 @@ def main():
     ax[1].legend(h1 + h2, l1 + l2, frameon=False, fontsize=8, loc="center right"); ax[1].set_title("(b) F1 vs. detection latency", fontsize=9)
     fig.tight_layout(); fig.savefig("figures/fig_alpha.pdf"); plt.close(fig)
 
-    # one graph per attack (example run)
-    ex = test[0]
-    lg = logs[(ex, best)]
-    fig, axs = plt.subplots(2, 2, figsize=(7.2, 4.6), sharex=True)
-    for ax, t in zip(axs.flat, TYPES):
-        at = att[(att.run_id == ex) & (att.attack_type == t)].iloc[0]
-        g = lg[lg.device_id == at.device_id]
-        name = dev.set_index("device_id").name[at.device_id]
-        ax.axvspan(at.start_cycle, at.end_cycle, color=COL[t], alpha=0.12, lw=0)
-        ax.bar(g.cycle, g.RF, color="#B8C2D1", width=1.0, label="Requests per cycle")
-        ax.set_yscale("symlog", linthresh=1); ax.set_ylabel("Requests / cycle")
-        bx = ax.twinx(); bx.spines["right"].set_visible(True)
-        bx.plot(g.cycle, g.trust, color=COL[t], lw=1.6, label="Trust score")
-        bx.axhline(70, color="#2E9E5B", lw=0.8, ls=":"); bx.axhline(40, color="#6B7689", lw=0.8, ls=":")
-        bx.set_ylim(0, 100); bx.set_ylabel("Trust score")
-        ax.axvline(A.BASE, color="k", lw=0.6, ls="--")
-        ax.set_title(f"{t}: {name}", fontsize=8.5)
-    for ax in axs[1]:
-        ax.set_xlabel("Cycle (1 s)")
-    fig.tight_layout(); fig.savefig("figures/fig_attacks.pdf"); plt.close(fig)
+    # one graph per attack type: see make_attack_figure.py
 
     # confusion matrix
     cmn = cm / cm.sum(1, keepdims=True).clip(min=1)

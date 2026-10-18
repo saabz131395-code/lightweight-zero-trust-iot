@@ -1,6 +1,5 @@
 run_id,true,pred
 11,Data exfiltration,Data exfiltration
-11,Data exfiltration,Data exfiltration
 11,DDoS flooding,DDoS flooding
 11,DDoS flooding,DDoS flooding
 11,Port scanning,Port scanning
@@ -40,11 +39,9 @@ run_id,true,pred
 18,DDoS flooding,DDoS flooding
 18,Port scanning,Port scanning
 19,Data exfiltration,Data exfiltration
-19,Data exfiltration,Data exfiltration
 19,DDoS flooding,DDoS flooding
 19,DDoS flooding,DDoS flooding
 19,Port scanning,Port scanning
-20,Data exfiltration,Data exfiltration
 20,Data exfiltration,Data exfiltration
 20,DDoS flooding,DDoS flooding
 20,DDoS flooding,DDoS flooding
@@ -75,19 +72,19 @@ run_id,true,pred
 25,DDoS flooding,DDoS flooding
 25,Port scanning,Port scanning
 26,Data exfiltration,Data exfiltration
-26,Data exfiltration,Data exfiltration
 26,DDoS flooding,DDoS flooding
 26,DDoS flooding,DDoS flooding
 26,Port scanning,Port scanning
+27,Data exfiltration,Data exfiltration
 27,Data exfiltration,Data exfiltration
 27,DDoS flooding,DDoS flooding
 27,DDoS flooding,DDoS flooding
 27,Port scanning,Port scanning
 28,Data exfiltration,Data exfiltration
-28,Data exfiltration,Data exfiltration
 28,DDoS flooding,DDoS flooding
 28,DDoS flooding,DDoS flooding
 28,Port scanning,Port scanning
+29,Data exfiltration,Data exfiltration
 29,Data exfiltration,Data exfiltration
 29,DDoS flooding,DDoS flooding
 29,DDoS flooding,DDoS flooding
